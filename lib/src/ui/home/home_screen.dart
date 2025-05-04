@@ -18,7 +18,7 @@ final class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     countdownController = CountdownController(
-      duration: const Duration(seconds: 10),
+      duration: const Duration(seconds: 16),
       onEnd: () {
         enableResendSMS.value = true;
       },
@@ -61,5 +61,12 @@ final class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    countdownController.dispose();
+    enableResendSMS.dispose();
+    super.dispose();
   }
 }
