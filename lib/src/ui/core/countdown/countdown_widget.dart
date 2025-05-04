@@ -1,14 +1,13 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'countdown_controller.dart';
 
 final class CountdownWidget extends StatefulWidget {
-  final Duration duration;
+  final CountdownController controller;
   final TextStyle textStyle;
 
   const CountdownWidget({
     super.key,
-    required this.duration,
+    required this.controller,
     required this.textStyle,
   });
 
@@ -17,19 +16,10 @@ final class CountdownWidget extends StatefulWidget {
 }
 
 final class _CountdownWidgetState extends State<CountdownWidget> {
-  final counterVN = ValueNotifier<Duration>(Duration.zero);
-  late DateTime endTime;
-  late Timer timer;
-
   @override
   void initState() {
-    endTime = DateTime.now().add(widget.duration);
-    counterVN.value = endTime.difference(DateTime.now());
-    timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      counterVN.value = endTime.difference(DateTime.now());
-      if (counterVN.value.inSeconds == 0) timer.cancel();
-    });
     super.initState();
+    widget.controller.start();
   }
 
   String _getRemainingTime(Duration value) {
@@ -41,7 +31,7 @@ final class _CountdownWidgetState extends State<CountdownWidget> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: counterVN,
+      valueListenable: widget.controller,
       builder: (_, value, _) {
         final timeRemaining = _getRemainingTime(value);
         return Text(timeRemaining, style: widget.textStyle);
