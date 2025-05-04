@@ -6,7 +6,7 @@ final class CountdownController extends ValueNotifier<Duration> {
   final VoidCallback? _onEnd;
   DateTime? _endTime;
   Timer? _timer;
-  bool started = false;
+  bool _started = false;
 
   CountdownController({required Duration duration, VoidCallback? onEnd})
     : _duration = duration,
@@ -26,7 +26,7 @@ final class CountdownController extends ValueNotifier<Duration> {
       value = Duration.zero;
       _timer?.cancel();
       _onEnd?.call();
-      started = false;
+      _started = false;
       return;
     }
 
@@ -40,12 +40,12 @@ final class CountdownController extends ValueNotifier<Duration> {
   }
 
   void start() {
-    if (started) return;
+    if (_started) return;
     _timer?.cancel();
     _computeEndTime();
     _updateValue();
     _startTimer();
-    started = true;
+    _started = true;
   }
 
   void restart() => start();
@@ -53,6 +53,7 @@ final class CountdownController extends ValueNotifier<Duration> {
   @override
   void dispose() {
     _timer?.cancel();
+    _started = false;
     super.dispose();
   }
 }
