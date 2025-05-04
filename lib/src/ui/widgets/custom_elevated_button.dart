@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 final class CustomElevatedButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final BorderRadiusGeometry borderRadius;
   final TextStyle textStyle;
   final EdgeInsetsGeometry? padding;
