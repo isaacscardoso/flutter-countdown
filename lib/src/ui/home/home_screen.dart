@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../core/countdown/countdown_widget.dart';
 import '../widgets/custom_elevated_button.dart';
 
 final class HomeScreen extends StatelessWidget {
@@ -13,7 +14,10 @@ final class HomeScreen extends StatelessWidget {
         child: Column(
           spacing: 10,
           children: <Widget>[
-            Text('00:30', style: TextStyle(fontSize: 30)),
+            CountdownWidget(
+              duration: const Duration(minutes: 1),
+              textStyle: const TextStyle(fontSize: 30),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 10,
